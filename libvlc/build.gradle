@@ -7,7 +7,7 @@ android {
         minSdkVersion 14
         targetSdkVersion Integer.valueOf(project.properties.get("targetSdkVersion"))
         versionCode 20180816
-        versionName "3.0.13"
+        versionName "3.0.13-beta.1"
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++11 -fexceptions"//-std=c++11 -frtti
@@ -65,11 +65,30 @@ buildscript {
     repositories {
         maven{ url 'http://maven.aliyun.com/nexus/content/repositories/central/'}
         jcenter()
+        maven { url "https://github.com/MasonLiuChn/MasonMavenRepository/raw/maven/releases" }
     }
     dependencies {
         classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.masonliu:gmaven:1.0.8'
     }
 }
 
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.tzraeq'
+
+apply plugin: 'maven'
+apply plugin: 'gmaven'
+gmavenGitRepo {
+    organization = 'tzraeq'
+    repository = 'maven'
+    branch = 'master'
+    type = 'releases'
+}
+
+gmavenLibrary {
+    group = 'com.github.tzraeq'
+    artifactId = 'Vlc-sdk-lib'
+    version = '3.0.13-beta.1'
+    packaging = 'aar'
+    description = "description"
+}
